@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thành Viên - Running Bee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                yellow: '#FACC15',
+                blue: '#0EA5E9',
+                blueText: '#0078D7',
+                dark: '#374151',
+              }
+            },
+            fontFamily: {
+              sans: ['"Roboto Condensed"', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Roboto Condensed', sans-serif;
+        background-color: #f9fafb;
+      }
+      .pattern-dots {
+        background-image: radial-gradient(#000 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+      .card-transition {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .member-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 120, 215, 0.1), 0 10px 10px -5px rgba(0, 120, 215, 0.04);
+      }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      ::-webkit-scrollbar-thumb { background: #0078D7; border-radius: 4px; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen overflow-x-hidden">
+
+    <!-- Navbar -->
+<nav
+      class="sticky top-0 z-50 w-full flex flex-col md:flex-row shadow-md font-bold uppercase text-white"
+    >
+      <!-- Brand Block -->
+      <div
+        class="bg-brand-yellow p-4 flex justify-between items-center md:w-auto z-50 relative"
+      >
+        <a
+          href="index.html"
+          class="flex items-center justify-center w-12 h-8 hover:opacity-80 transition-opacity"
+        >
+          <!-- Home Icon -->
+          <svg
+            class="w-8 h-8 text-brand-blueText"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+        </a>
+
+        <button id="mobile-menu-btn" class="md:hidden text-brand-blueText">
+          <!-- Menu Icon -->
+          <svg
+            id="icon-menu"
+            class="w-8 h-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
+          <!-- X Icon (Hidden by default) -->
+          <svg
+            id="icon-close"
+            class="hidden w-8 h-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 18 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Links -->
+      <div
+        id="mobile-menu"
+        class="flex-1 bg-brand-blueText hidden md:flex flex-col md:flex-row items-center md:justify-start absolute md:relative w-full md:w-auto top-full md:top-auto left-0 transition-all duration-300 ease-in-out"
+      >
+        <!-- Link Item -->
+        <a
+          href="members.html"
+          class="group relative flex items-center px-6 py-4 md:py-0 h-full hover:bg-white hover:text-brand-blueText transition-colors duration-200 border-b md:border-b-0 border-blue-500 w-full md:w-auto justify-center md:justify-start"
+        >
+          <span class="mr-1 text-lg tracking-wide">THÀNH VIÊN</span>
+
+          <span
+            class="absolute bottom-0 left-0 w-0 h-1 bg-brand-yellow transition-all duration-300 group-hover:w-full"
+          ></span>
+        </a>
+
+        <!-- Repeat for other links -->
+        <a
+          href="#"
+          class="group relative flex items-center px-6 py-4 md:py-0 h-full hover:bg-white hover:text-brand-blueText transition-colors duration-200 border-b md:border-b-0 border-blue-500 w-full md:w-auto justify-center md:justify-start"
+        >
+          <span class="mr-1 text-lg tracking-wide">THỂ LỆ</span>
+          <span
+            class="absolute bottom-0 left-0 w-0 h-1 bg-brand-yellow transition-all duration-300 group-hover:w-full"
+          ></span>
+        </a>
+        <a
+          href="#"
+          class="group relative flex items-center px-6 py-4 md:py-0 h-full hover:bg-white hover:text-brand-blueText transition-colors duration-200 border-b md:border-b-0 border-blue-500 w-full md:w-auto justify-center md:justify-start"
+        >
+          <span class="mr-1 text-lg tracking-wide">TIMELINE SỰ KIỆN</span>
+          <span
+            class="absolute bottom-0 left-0 w-0 h-1 bg-brand-yellow transition-all duration-300 group-hover:w-full"
+          ></span>
+        </a>
+        <a
+          href="#"
+          class="group relative flex items-center px-6 py-4 md:py-0 h-full hover:bg-white hover:text-brand-blueText transition-colors duration-200 border-b md:border-b-0 border-blue-500 w-full md:w-auto justify-center md:justify-start"
+        >
+          <span class="mr-1 text-lg tracking-wide">CÁC SẢN PHẨM</span>
+          <svg
+            class="w-4 h-4 mt-1"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+          <span
+            class="absolute bottom-0 left-0 w-0 h-1 bg-brand-yellow transition-all duration-300 group-hover:w-full"
+          ></span>
+        </a>
+      </div>
+    </nav
+
+    <!-- Header Section -->
+    <header class="bg-brand-yellow py-16 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5 pattern-dots pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <h1 class="text-5xl md:text-7xl font-black text-brand-blueText italic uppercase tracking-tighter mb-4">
+                ĐỘI NGŨ CHIẾN BINH
+            </h1>
+            <p class="text-brand-blueText font-bold text-xl max-w-2xl mx-auto uppercase tracking-widest opacity-80">
+                Gặp gỡ những "Chú Ong" đầy nhiệt huyết kiến tạo nên Running Bee 2026
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow py-20 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Team 1 Section -->
+            <div class="mb-20">
+                <div class="flex items-center space-x-4 mb-10">
+                    <span class="bg-brand-blueText text-white font-black px-6 py-2 rounded-sm text-2xl skew-x-[-12deg]">ĐỘI 1</span>
+                    <div class="flex-grow h-px bg-gray-300"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <!-- Member Card: Duy Linh -->
+                    <div class="member-card bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row card-transition shadow-sm border border-grey-100">
+                        <div class="md:w-2/5 relative h-80 md:h-auto overflow-hidden">
+                            <img src="img/member1.png" alt="Trần Duy Linh" class="w-full h-full object-cover transition-all duration-700 hover:scale-105" onerror="this.src='https://placehold.co/400x500/0078D7/FFFFFF?text=Duy+Linh'"/>
+                        </div>
+                        <div class="p-8 md:w-3/5 flex flex-col justify-center">
+                            <h3 class="text-3xl font-black text-brand-blueText italic uppercase mb-2 leading-none">Trần Duy Linh</h3>
+                            <div class="w-12 h-1 bg-brand-yellow mb-4"></div>
+                            <p class="text-gray-600 text-lg leading-relaxed text-justify">
+                                Thành viên nổi bật với phong thái hài hước và khả năng phán đoán nhạy bén. Duy Linh luôn là người khơi nguồn cảm hứng và tiếng cười, giúp xóa tan căng thẳng cho cả đội trong những chặng đua thử thách nhất.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Member Card: Minh Nhân -->
+                    <div class="member-card bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row card-transition shadow-sm border border-gray-100">
+                        <div class="md:w-2/5 relative h-80 md:h-auto overflow-hidden">
+                            <img src="img/member2.png" alt="Lê Minh Nhân" class="w-full h-full object-cover transition-all duration-700 hover:scale-105" onerror="this.src='https://placehold.co/400x500/0078D7/FFFFFF?text=Minh+Nhân'"/>
+                        </div>
+                        <div class="p-8 md:w-3/5 flex flex-col justify-center">
+                            <h3 class="text-3xl font-black text-brand-blueText italic uppercase mb-2 leading-none">Lê Minh Nhân</h3>
+                            <div class="w-12 h-1 bg-brand-yellow mb-4"></div>
+                            <p class="text-gray-600 text-lg leading-relaxed text-justify">
+                                Được biết đến với tính cách hòa đồng và khả năng kết nối tuyệt vời. Minh Nhân đóng vai trò "chất keo" gắn kết các thành viên, giúp đội hình luôn duy trì được sự ổn định và tinh thần đoàn kết cao.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team 2 Section -->
+            <div>
+                <div class="flex items-center space-x-4 mb-10">
+                    <span class="bg-brand-blueText text-white font-black px-6 py-2 rounded-sm text-2xl skew-x-[-12deg]">ĐỘI 2</span>
+                    <div class="flex-grow h-px bg-gray-300"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <!-- Member Card: Nguyễn Hoàng -->
+                    <div class="member-card bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row card-transition shadow-sm border border-gray-100">
+                        <div class="md:w-2/5 relative h-80 md:h-auto overflow-hidden">
+                            <img src="img/member3.png" alt="Nguyễn Hoàng" class="w-full h-full object-cover  transition-all duration-700 hover:scale-105" onerror="this.src='https://placehold.co/400x500/0078D7/FFFFFF?text=Nguyễn+Hoàng'"/>
+                        </div>
+                        <div class="p-8 md:w-3/5 flex flex-col justify-center">
+                            <h3 class="text-3xl font-black text-brand-blueText italic uppercase mb-2 leading-none">Nguyễn Hoàng</h3>
+                            <div class="w-12 h-1 bg-brand-yellow mb-4"></div>
+                            <p class="text-gray-600 text-lg leading-relaxed text-justify">
+                                Chiến binh đầy sáng tạo với tinh thần cầu tiến. Nguyễn Hoàng mang đến những góc nhìn mới mẻ và các giải pháp thông minh cho đội, giúp Team 2 luôn có những nước đi đột phá trong sự kiện.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Member Card: Hàn Châu -->
+                    <div class="member-card bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row card-transition shadow-sm border border-gray-100">
+                        <div class="md:w-2/5 relative h-80 md:h-auto overflow-hidden">
+                            <img src="img/member4.png" alt="Nguyễn Hàn Châu" class="w-full h-full object-cover  transition-all duration-700 hover:scale-105" onerror="this.src='https://placehold.co/400x500/0078D7/FFFFFF?text=Hàn+Châu'"/>
+                        </div>
+                        <div class="p-8 md:w-3/5 flex flex-col justify-center">
+                            <h3 class="text-3xl font-black text-brand-blueText italic uppercase mb-2 leading-none">Nguyễn Hàn Châu</h3>
+                            <div class="w-12 h-1 bg-brand-yellow mb-4"></div>
+                            <p class="text-gray-600 text-lg leading-relaxed text-justify">
+                                Sở hữu phản xạ nhanh nhạy và nguồn năng lượng tích cực vô hạn. Hàn Châu là người thúc đẩy tốc độ của cả nhóm, luôn sẵn sàng chớp lấy thời cơ để đưa đội tiến về phía trước một cách mạnh mẽ nhất.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="w-full bg-[#4B4B4B] text-white py-12 px-4 md:px-16">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div class="space-y-2 font-normal text-lg">
+          <p class="leading-relaxed">
+            <span class="font-bold">Địa chỉ:</span> Tòa nhà Innovation, Công
+            viên <br />phần mềm Quang Trung, đường Tô Ký, <br />Phường Trung Mỹ
+            Tây, Quận 12, <br />TP.HCM
+          </p>
+          <p>
+            <span class="font-bold">Email liên lạc:</span>
+            <br />
+            <a
+              href="mailto:RunningBee.official@Gmail.com"
+              class="hover:text-brand-yellow transition-colors"
+              >RunningBee.official@Gmail.com</a
+            >
+          </p>
+          <p>
+            <span class="font-bold">Website thông tin:</span>
+            <br />
+            <a
+              href="https://chaydichobee.online"
+              class="hover:text-brand-yellow transition-colors"
+              >chaydichobee.online</a
+            >
+          </p>
+          <p><span class="font-bold">Hotline:</span> 0373572972</p>
+        </div>
+        <div class="flex flex-col justify-between">
+          <p class="italic text-lg text-gray-300 leading-relaxed mb-8">
+            Quisque facilisis iaculis lectus, in pharetra justo maximus id.
+            Curabitur molestie, dolor sit amet tincidunt dapibus, dolor lacus
+            euismod ex, id bibendum est lectus a felis. Praesent porta felis
+            risus.
+          </p>
+          <div class="flex space-x-4">
+            <!-- Facebook -->
+            <a
+              href="https://www.facebook.com/profile.php?fb_profile_edit_entry_point=%7B%22click_point%22%3A%22edit_profile_button%22%2C%22feature%22%3A%22profile_header%22%7D&id=61586694003171&sk=about"
+              class="transform hover:-translate-y-1 transition-transform duration-200"
+            >
+              <div
+                class="w-12 h-12 bg-[#0078D7] rounded-full flex items-center justify-center hover:bg-blue-500"
+              >
+                <svg
+                  class="text-white w-7 h-7"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                  />
+                </svg>
+              </div>
+            </a>
+            <!-- Youtube -->
+            <a
+              href="https://www.youtube.com/@chaydichobee"
+              class="transform hover:-translate-y-1 transition-transform duration-200"
+            >
+              <div
+                class="w-12 h-12 rounded-full flex items-center justify-center hover:bg-white-500"
+              >
+                <img src="img/youtube.png" alt="" />
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+</body>
+</html>
