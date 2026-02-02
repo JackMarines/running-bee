@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Running Bee - Timeline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                yellow: '#FACC15',
+                blue: '#0EA5E9',
+                blueText: '#0078D7',
+                dark: '#1F2937',
+              }
+            },
+            fontFamily: {
+              sans: ['"Roboto Condensed"', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Roboto Condensed', sans-serif;
+        background-color: #ffffff;
+        color: #1F2937;
+        overflow-x: hidden;
+      }
+      .diagonal-bg {
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+      }
+      @media (max-width: 768px) {
+        .diagonal-bg {
+          clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%);
+        }
+      }
+      .pattern-dots {
+        background-image: radial-gradient(#000 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+      
+      /* Timeline Animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Roadmap Line Positioning */
+      .roadmap-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: #FACC15;
+        left: 24px; /* Mobile position */
+      }
+      @media (min-width: 768px) {
+        .roadmap-container::before {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      ::-webkit-scrollbar-thumb { background: #FACC15; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #eab308; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+     <nav
+      class="sticky top-0 z-50 w-full flex flex-col md:flex-row shadow-md font-bold uppercase text-white"
+    >
+      <!-- Brand Block -->
+      <div
+        class="bg-brand-yellow p-4 flex justify-between items-center md:w-auto z-50 relative"
+      >
+        <a
+          href="index.html"
+          class="flex items-center justify-center w-12 h-8 hover:opacity-80 transition-opacity"
+        >
+          <!-- Home Icon -->
+       <svg class="w-8 h-8 text-brand-blueText transition-colors duration-300" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          <circle cx="12" cy="12" r="1" fill="currentColor"></circle>
+        </svg>
+        </a>
+
+        <button id="mobile-menu-btn" class="md:hidden text-brand-blueText">
+          <!-- Menu Icon -->
+          <svg
+            id="icon-menu"
+            class="w-8 h-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
+          <!-- X Icon (Hidden by default) -->
+          <svg
+            id="icon-close"
+            class="hidden w-8 h-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 18 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Links -->
+      <div
+        id="mobile-menu"
+        class="flex-1 bg-brand-blueText hidden md:flex flex-col md:flex-row items-center md:justify-start absolute md:relative w-full md:w-auto top-full md:top-auto left-0 transition-all duration-300 ease-in-out"
+      >
+        <!-- Link Item -->
+        <a
+          href="members.html"
+          class="group relative flex items-center px-6 py-4 md:py-0 h-full hover:bg-white hover:text-brand-blueText transition-colors duration-200 border-b md:border-b-0 border-blue-500 w-full md:w-auto justify-center md:justify-start"
+        >
+          <span class="mr-1 text-lg tracking-wide">THÀNH VIÊN</span>
+          <svg
+            class="w-4 h-4 mt-1"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+          <span
+            class="absolute bottom-0 left-0 w-0 h-1 bg-brand-yellow transition-all duration-300 group-hover:w-full"
+          ></span>
+        </a>
+
+        <!-- Repeat for other links -->
+        <a
+          href="rules.html"
+          class="group relative flex items-center px-6 py-4 md:py-0 h-full hover:bg-white hover:text-brand-blueText transition-colors duration-200 border-b md:border-b-0 border-blue-500 w-full md:w-auto justify-center md:justify-start"
+        >
+          <span class="mr-1 text-lg tracking-wide">THỂ LỆ</span>
+          <span
+            class="absolute bottom-0 left-0 w-0 h-1 bg-brand-yellow transition-all duration-300 group-hover:w-full"
+          ></span>
+        </a>
+        <a
+          href="timeline.html"
+          class="group relative flex items-center px-6 py-4 md:py-0 h-full hover:bg-white hover:text-brand-blueText transition-colors duration-200 border-b md:border-b-0 border-blue-500 w-full md:w-auto justify-center md:justify-start"
+        >
+          <span class="mr-1 text-lg tracking-wide">TIMELINE SỰ KIỆN</span>
+          <span
+            class="absolute bottom-0 left-0 w-0 h-1 bg-brand-yellow transition-all duration-300 group-hover:w-full"
+          ></span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-brand-blueText pt-32 pb-48 px-4 relative overflow-hidden text-white diagonal-bg">
+        <div class="absolute inset-0 opacity-10 pattern-dots pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto relative z-10 text-center md:text-left">
+            <h1 class="text-6xl sm:text-8xl md:text-[10rem] font-black italic uppercase tracking-tighter mb-0 leading-[1] reveal active">
+                TIME<span class="text-brand-yellow">LINE</span>
+            </h1>
+            <p class="text-xl md:text-3xl font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-brand-yellow opacity-90 mt-4 md:mt-0 reveal active" style="transition-delay: 0.2s">
+                KẾ HOẠCH TỔ CHỨC
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow -mt-24 relative z-20">
+        
+        <!-- Section I: Tổng Quan -->
+        <section class="max-w-7xl mx-auto px-4 md:px-8 mb-32">
+            <div class="bg-white p-8 md:p-12 shadow-2xl rounded-3xl reveal active">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 border-b-2 border-gray-100 pb-12 mb-12">
+                    <div class="text-center md:text-left">
+                        <h4 class="text-brand-yellow font-black uppercase tracking-widest text-xs md:text-sm mb-2">THỜI GIAN</h4>
+                        <p class="text-2xl md:text-3xl font-black italic text-brand-blueText">20/04/2026</p>
+                        <p class="text-sm md:text-lg font-bold text-gray-500">08:00 – 17:00 (CHỦ NHẬT)</p>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h4 class="text-brand-yellow font-black uppercase tracking-widest text-xs md:text-sm mb-2">ĐỊA ĐIỂM</h4>
+                        <p class="text-2xl md:text-3xl font-black italic text-brand-blueText">CÔNG VIÊN / SVĐ</p>
+                        <p class="text-sm md:text-lg font-bold text-gray-500">KHUÔN VIÊN TRƯỜNG</p>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h4 class="text-brand-yellow font-black uppercase tracking-widest text-xs md:text-sm mb-2">QUY MÔ</h4>
+                        <p class="text-2xl md:text-3xl font-black italic text-brand-blueText">80 – 120 NGƯỜI</p>
+                        <p class="text-sm md:text-lg font-bold text-gray-500">THAM GIA TRỰC TIẾP</p>
+                    </div>
+                </div>
+                <div class="text-center px-4">
+                    <p class="text-brand-yellow font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-xs md:text-sm mb-4">THÔNG ĐIỆP CHÍNH</p>
+                    <p class="text-2xl md:text-5xl font-black italic text-brand-blueText uppercase leading-tight">
+                        “CHẠY HẾT MÌNH – GẮN KẾT ĐỒNG ĐỘI – BỨT PHÁ GIỚI HẠN”
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section II: Lộ Trình Chuẩn Bị (Roadmap) -->
+        <section class="max-w-5xl mx-auto px-6 md:px-8 mb-40 relative">
+            <h2 class="text-4xl md:text-5xl font-black text-brand-blueText italic mb-20 uppercase text-center tracking-tighter reveal">LỘ TRÌNH CHUẨN BỊ</h2>
+            
+            <div class="roadmap-container relative space-y-16">
+                <!-- Step 1 -->
+                <div class="flex flex-col md:flex-row items-center w-full group reveal">
+                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-12 md:text-right">
+                        <p class="text-brand-yellow font-black text-xl md:text-2xl italic">15/03 – 20/03</p>
+                        <h3 class="text-2xl md:text-3xl font-black text-brand-blueText uppercase mb-2">LÊN Ý TƯỞNG</h3>
+                        <p class="text-gray-600 font-bold italic text-sm md:text-base">Xây dựng concept và cốt truyện cho Running Bee.</p>
+                    </div>
+                    <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-6 h-6 md:w-8 md:h-8 bg-brand-blueText border-4 border-brand-yellow rounded-full z-10 group-hover:scale-125 transition-transform"></div>
+                    <div class="hidden md:block md:w-1/2"></div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col md:flex-row items-center w-full group reveal">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-6 h-6 md:w-8 md:h-8 bg-brand-blueText border-4 border-brand-yellow rounded-full z-10 group-hover:scale-125 transition-transform"></div>
+                    <div class="w-full md:w-1/2 pl-12 md:pl-12 md:text-left">
+                        <p class="text-brand-yellow font-black text-xl md:text-2xl italic">21/03 – 31/03</p>
+                        <h3 class="text-2xl md:text-3xl font-black text-brand-blueText uppercase mb-2">PHÂN CÔNG BTC</h3>
+                        <p class="text-gray-600 font-bold italic text-sm md:text-base">Thành lập các ban chuyên môn: Truyền thông, Hậu cần, Luật chơi.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col md:flex-row items-center w-full group reveal">
+                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-12 md:text-right">
+                        <p class="text-brand-yellow font-black text-xl md:text-2xl italic">01/04 – 10/04</p>
+                        <h3 class="text-2xl md:text-3xl font-black text-brand-blueText uppercase mb-2">TRUYỀN THÔNG</h3>
+                        <p class="text-gray-600 font-bold italic text-sm md:text-base">Lan tỏa thông điệp, mở đăng ký và thu hút chiến binh.</p>
+                    </div>
+                    <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-6 h-6 md:w-8 md:h-8 bg-brand-blueText border-4 border-brand-yellow rounded-full z-10 group-hover:scale-125 transition-transform"></div>
+                    <div class="hidden md:block md:w-1/2"></div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="flex flex-col md:flex-row items-center w-full group reveal">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-6 h-6 md:w-8 md:h-8 bg-brand-blueText border-4 border-brand-yellow rounded-full z-10 group-hover:scale-125 transition-transform"></div>
+                    <div class="w-full md:w-1/2 pl-12 md:pl-12 md:text-left">
+                        <p class="text-brand-yellow font-black text-xl md:text-2xl italic">11/04 – 18/04</p>
+                        <h3 class="text-2xl md:text-3xl font-black text-brand-blueText uppercase mb-2">CHUẨN BỊ ĐẠO CỤ</h3>
+                        <p class="text-gray-600 font-bold italic text-sm md:text-base">Race-kit, bảng tên, bóng bay và cờ lệnh đã sẵn sàng.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section III: Race Day Timeline -->
+        <section class="bg-brand-blueText py-24 md:py-32 px-4 md:px-8 text-white">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6 mb-16 reveal">
+                    <h2 class="text-4xl sm:text-5xl md:text-6xl font-black italic uppercase tracking-tighter">NGÀY TỔ CHỨC <span class="text-brand-yellow">20/04</span></h2>
+                    <div class="hidden md:block flex-grow h-1 bg-brand-yellow opacity-30"></div>
+                </div>
+
+                <div class="space-y-4 md:space-y-6">
+                    <!-- Morning -->
+                    <div class="group flex items-center bg-white/10 p-6 md:p-8 rounded-2xl hover:bg-white hover:text-brand-blueText transition-all cursor-default reveal">
+                        <div class="w-20 md:w-32 flex-shrink-0 text-xl md:text-3xl font-black italic border-r-4 border-brand-yellow mr-6 md:mr-8">10:00</div>
+                        <div class="flex-grow">
+                            <h4 class="text-lg md:text-2xl font-black uppercase leading-tight">ĐẠP BÓNG BAY</h4>
+                            <p class="font-bold italic opacity-70 text-sm md:text-base">Màn khởi động bùng nổ năng lượng.</p>
+                        </div>
+                    </div>
+
+                    <div class="group flex items-center bg-white/10 p-6 md:p-8 rounded-2xl hover:bg-white hover:text-brand-blueText transition-all cursor-default reveal">
+                        <div class="w-20 md:w-32 flex-shrink-0 text-xl md:text-3xl font-black italic border-r-4 border-brand-yellow mr-6 md:mr-8">11:20</div>
+                        <div class="flex-grow">
+                            <h4 class="text-lg md:text-2xl font-black uppercase leading-tight">TRỐN TÌM & ĐUỔI BẮT</h4>
+                            <p class="font-bold italic opacity-70 text-sm md:text-base">Thử thách phản xạ và sự nhanh nhẹn.</p>
+                        </div>
+                    </div>
+
+                    <div class="h-16 flex items-center justify-center opacity-40 italic font-bold text-sm md:text-base uppercase tracking-widest text-center reveal">--- NGHỈ TRƯA / NẠP NĂNG LƯỢNG ---</div>
+
+                    <!-- Afternoon -->
+                    <div class="group flex items-center bg-white/10 p-6 md:p-8 rounded-2xl hover:bg-white hover:text-brand-blueText transition-all cursor-default reveal">
+                        <div class="w-20 md:w-32 flex-shrink-0 text-xl md:text-3xl font-black italic border-r-4 border-brand-yellow mr-6 md:mr-8">14:00</div>
+                        <div class="flex-grow">
+                            <h4 class="text-lg md:text-2xl font-black uppercase leading-tight">CƯỚP CỜ (3 MÀN)</h4>
+                            <p class="font-bold italic opacity-70 text-sm md:text-base">Đỉnh cao chiến thuật đồng đội.</p>
+                        </div>
+                    </div>
+
+                    <div class="group flex items-center bg-white/10 p-6 md:p-8 rounded-2xl hover:bg-white hover:text-brand-blueText transition-all cursor-default reveal">
+                        <div class="w-20 md:w-32 flex-shrink-0 text-xl md:text-3xl font-black italic border-r-4 border-brand-yellow mr-6 md:mr-8">15:30</div>
+                        <div class="flex-grow">
+                            <h4 class="text-lg md:text-2xl font-black uppercase leading-tight">XÉ BẢNG TÊN</h4>
+                            <p class="font-bold italic opacity-70 text-sm md:text-base">Trận chiến cuối cùng xác định người thắng cuộc.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center bg-brand-yellow p-6 md:p-8 rounded-2xl text-brand-blueText shadow-2xl md:scale-105 border-2 border-brand-yellow reveal">
+                        <div class="w-20 md:w-32 flex-shrink-0 text-xl md:text-3xl font-black italic border-r-4 border-brand-blueText mr-6 md:mr-8">16:30</div>
+                        <div class="flex-grow">
+                            <h4 class="text-lg md:text-2xl font-black uppercase leading-tight">LỄ TRAO GIẢI</h4>
+                            <p class="font-bold italic text-sm md:text-base">Vinh danh các "Chú Ong" xuất sắc nhất.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="w-full bg-[#4B4B4B] text-white py-12 px-4 md:px-16">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div class="space-y-2 font-normal text-lg">
+          <p class="leading-relaxed">
+            <span class="font-bold">Địa chỉ:</span> Tòa nhà Innovation, Công
+            viên <br />phần mềm Quang Trung, đường Tô Ký, <br />Phường Trung Mỹ
+            Tây, Quận 12, <br />TP.HCM
+          </p>
+          <p>
+            <span class="font-bold">Email liên lạc:</span>
+            <br />
+            <a
+              href="mailto:RunningBee.official@Gmail.com"
+              class="hover:text-brand-yellow transition-colors"
+              >RunningBee.official@Gmail.com</a
+            >
+          </p>
+          <p>
+            <span class="font-bold">Website thông tin:</span>
+            <br />
+            <a
+              href="https://chaydichobee.online"
+              class="hover:text-brand-yellow transition-colors"
+              >chaydichobee.online</a
+            >
+          </p>
+          <p><span class="font-bold">Hotline:</span> 0373572972</p>
+        </div>
+        <div class="flex flex-col justify-between">
+          <p class="italic text-lg text-gray-300 leading-relaxed mb-8">
+             Đây là dự án của sinh viên FPT Polyschool, lớp SD2003 do Giảng viên Đoàn Minh Trọng hướng dẫn. Sự kiện và các chi tiết nội dung liên quan đều mang tính hư cấu.
+          </p>
+          <div class="flex space-x-4">
+            <!-- Facebook -->
+            <a
+              href="https://www.facebook.com/profile.php?fb_profile_edit_entry_point=%7B%22click_point%22%3A%22edit_profile_button%22%2C%22feature%22%3A%22profile_header%22%7D&id=61586694003171&sk=about"
+              class="transform hover:-translate-y-1 transition-transform duration-200"
+            >
+              <div
+                class="w-12 h-12 bg-[#0078D7] rounded-full flex items-center justify-center hover:bg-blue-500"
+              >
+                <svg
+                  class="text-white w-7 h-7"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                  />
+                </svg>
+              </div>
+            </a>
+            <!-- Youtube -->
+            <a
+              href="https://www.youtube.com/@chaydichobee"
+              class="transform hover:-translate-y-1 transition-transform duration-200"
+            >
+              <div
+                class="w-12 h-12 rounded-full flex items-center justify-center hover:bg-white-500"
+              >
+                <img src="img/youtube.png" alt="" />
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navContainer = document.getElementById('nav-container');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            navContainer.classList.remove('md:-translate-y-[calc(100%-8px)]');
+        });
+
+        // Reveal on scroll logic
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
