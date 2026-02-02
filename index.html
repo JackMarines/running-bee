@@ -469,8 +469,7 @@
 
     <!-- Video -->
     <section class="w-full bg-white pb-20 px-4 md:px-8 flex flex-col items-center">
-      <h2
-        class="text-3xl md:text-4xl font-bold text-brand-blueText italic mb-8 uppercase tracking-wide animate-fade-in-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-blueText italic mb-8 uppercase tracking-wide animate-fade-in-up">
         VIDEO TRAILER
       </h2>
       <div
@@ -486,11 +485,17 @@
             </svg>
           </div>
         </div>
-        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
-        <p
-          class="absolute bottom-4 right-4 text-brand-blueText font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-          CLICK TO PLAY
-        </p>
+        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 z-10"></div>
+        <p class="absolute bottom-4 right-4 text-brand-blueText font-bold opacity-0 group-hover:opacity-100 transition-opacity z-10">CLICK TO PLAY</p>
+      </div>
+
+      <!-- Local Video Container (Initially Hidden) -->
+      <div id="video-container" class="hidden w-full max-w-4xl aspect-video shadow-2xl rounded-sm overflow-hidden animate-fade-in-up">
+        <video id="video-player" class="w-full h-full bg-black" controls>
+          <!-- UPDATE THIS SRC TO YOUR LOCAL VIDEO FILE -->
+          <source src="video/21.mp4" type="video/mp4">
+          Trình duyệt của bạn không hỗ trợ tag video.
+        </video>
       </div>
     </section>
   </main>
@@ -566,6 +571,18 @@
         iconClose.classList.remove("hidden");
       }
     });
+
+      // Video Play Logic
+    function playVideo() {
+      const placeholder = document.getElementById('video-placeholder');
+      const container = document.getElementById('video-container');
+      const videoPlayer = document.getElementById('video-player');
+      
+      placeholder.classList.add('hidden');
+      container.classList.remove('hidden');
+      videoPlayer.play();
+    }
+
 
     // Loading Animation Logic
     window.addEventListener("load", () => {
