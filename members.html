@@ -171,16 +171,17 @@
           <div
             class="member-card bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row card-transition shadow-sm border border-gray-100">
             <div class="md:w-2/5 relative h-80 md:h-auto overflow-hidden">
-              <img src="img/member2.png" alt="Lê Minh Nhân"
-                class="w-full h-full object-cover transition-all duration-700 hover:scale-105"
-                onerror="this.src='https://placehold.co/400x500/0078D7/FFFFFF?text=Minh+Nhân'" />
+              <img src="img/member4.png" alt="Nguyễn Hàn Châu"
+                class="w-full h-full object-cover  transition-all duration-700 hover:scale-105"
+                onerror="this.src='https://placehold.co/400x500/0078D7/FFFFFF?text=Hàn+Châu'" />
             </div>
             <div class="p-8 md:w-3/5 flex flex-col justify-center">
-              <h3 class="text-3xl font-black text-brand-blueText italic uppercase mb-2 leading-none">Lê Minh Nhân</h3>
+              <h3 class="text-3xl font-black text-brand-blueText italic uppercase mb-2 leading-none">Nguyễn Hàn Châu
+              </h3>
               <div class="w-12 h-1 bg-brand-yellow mb-4"></div>
               <p class="text-gray-600 text-lg leading-relaxed text-justify">
-                Được biết đến với tính cách hòa đồng và khả năng kết nối tuyệt vời. Minh Nhân đóng vai trò "chất keo"
-                gắn kết các thành viên, giúp đội hình luôn duy trì được sự ổn định và tinh thần đoàn kết cao.
+                Sở hữu phản xạ nhanh nhạy và nguồn năng lượng tích cực vô hạn. Hàn Châu là người thúc đẩy tốc độ của cả
+                nhóm, luôn sẵn sàng chớp lấy thời cơ để đưa đội tiến về phía trước một cách mạnh mẽ nhất.
               </p>
             </div>
           </div>
@@ -218,22 +219,24 @@
           <div
             class="member-card bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row card-transition shadow-sm border border-gray-100">
             <div class="md:w-2/5 relative h-80 md:h-auto overflow-hidden">
-              <img src="img/member4.png" alt="Nguyễn Hàn Châu"
-                class="w-full h-full object-cover  transition-all duration-700 hover:scale-105"
-                onerror="this.src='https://placehold.co/400x500/0078D7/FFFFFF?text=Hàn+Châu'" />
+              <img src="img/member2.png" alt="Lê Minh Nhân"
+                class="w-full h-full object-cover transition-all duration-700 hover:scale-105"
+                onerror="this.src='https://placehold.co/400x500/0078D7/FFFFFF?text=Minh+Nhân'" />
             </div>
             <div class="p-8 md:w-3/5 flex flex-col justify-center">
-              <h3 class="text-3xl font-black text-brand-blueText italic uppercase mb-2 leading-none">Nguyễn Hàn Châu
-              </h3>
+              <h3 class="text-3xl font-black text-brand-blueText italic uppercase mb-2 leading-none">Lê Minh Nhân</h3>
               <div class="w-12 h-1 bg-brand-yellow mb-4"></div>
               <p class="text-gray-600 text-lg leading-relaxed text-justify">
-                Sở hữu phản xạ nhanh nhạy và nguồn năng lượng tích cực vô hạn. Hàn Châu là người thúc đẩy tốc độ của cả
-                nhóm, luôn sẵn sàng chớp lấy thời cơ để đưa đội tiến về phía trước một cách mạnh mẽ nhất.
+                Được biết đến với tính cách hòa đồng và khả năng kết nối tuyệt vời. Minh Nhân đóng vai trò "chất keo"
+                gắn kết các thành viên, giúp đội hình luôn duy trì được sự ổn định và tinh thần đoàn kết cao.
               </p>
             </div>
           </div>
         </div>
       </div>
+
+    </div>
+    </div>
 
     </div>
   </main>
@@ -287,33 +290,33 @@
     </div>
   </footer>
 
-   <script>
-        // Mobile Menu Logic
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navContainer = document.getElementById('nav-container');
+  <script>
+    // Mobile Menu Logic
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navContainer = document.getElementById('nav-container');
 
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
-            navContainer.classList.remove('md:-translate-y-[calc(100%-8px)]');
-        });
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+      navContainer.classList.remove('md:-translate-y-[calc(100%-8px)]');
+    });
 
-        // Reveal on scroll logic
-        const observerOptions = {
-            threshold: 0.1
-        };
+    // Reveal on scroll logic
+    const observerOptions = {
+      threshold: 0.1
+    };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 </body>
 
 </html>
